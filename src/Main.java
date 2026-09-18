@@ -5,39 +5,30 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        int[] array = new int[10];
-        Random random = new Random();
+//        Car opel = new Car();
+//        opel.model = "Opel";
+//        opel.color = "Жёлтый";
+//        opel.volume = 45;
+//        opel.fuelLevel = 15;
+//        opel.fuelConsumtion = 8;
+//
+//        opel.move(10, 10, 100, 100);
+//
+//        Car bmw = new Car();
+//        opel.model = "BMW";
+//        opel.color = "Чёрный";
+//        opel.volume = 60;
+//        opel.fuelLevel = 60;
+//        opel.fuelConsumtion = 12;
+//
+//        opel.move(10, 10, 500, 500);
 
-        for (int i = 0; i < array.length; i++) {
-            array[i] = random.nextInt(20);
-        }
+        Car opel = new Car("Opel");
+        opel.color = "Жёлтый";
+        Car bmw = new Car("BMW");
+        bmw.color = "Синий";
+        System.out.println(opel.color);
+        System.out.println(bmw.color);
 
-        System.out.println(Arrays.toString(array));
-
-        for (int i = 0; i < array.length; i++) {
-            array[i] += 100;
-        }
-
-        System.out.println(Arrays.toString(array));
-
-        for (int element : array) {
-            System.out.println(element % 100);
-        }
-
-        Arrays.sort(array);
-
-        System.out.println(Arrays.toString(array));
-
-        int maxNumber = array[0];
-        for (int element : array) {
-            if (maxNumber < element) maxNumber = element;
-        }
-        System.out.println(maxNumber);
-
-        int sumNumber = 0;
-        for (int element : array) {
-            sumNumber += element;
-        }
-        System.out.println(sumNumber);
     }
 }
