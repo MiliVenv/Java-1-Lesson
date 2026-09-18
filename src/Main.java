@@ -1,34 +1,47 @@
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
     public static void main(String[] args) {
-//        Car opel = new Car();
-//        opel.model = "Opel";
-//        opel.color = "Жёлтый";
-//        opel.volume = 45;
-//        opel.fuelLevel = 15;
-//        opel.fuelConsumtion = 8;
-//
-//        opel.move(10, 10, 100, 100);
-//
-//        Car bmw = new Car();
-//        opel.model = "BMW";
-//        opel.color = "Чёрный";
-//        opel.volume = 60;
-//        opel.fuelLevel = 60;
-//        opel.fuelConsumtion = 12;
-//
-//        opel.move(10, 10, 500, 500);
+//            Scanner scanner = new Scanner(System.in);
+//            System.out.println("Введите логин: ");
+//            System.out.println(getFormartLogin(scanner.next()));
+//            System.out.println(replaceSecondWord("CAT DOG", "CAT"));
 
-        Car opel = new Car("Opel");
-        opel.color = "Жёлтый";
-        Car bmw = new Car("BMW");
-        bmw.color = "Синий";
-        System.out.println(opel.color);
-        System.out.println(bmw.color);
+        Numbers("4444r7777777r999999999");
+    }
 
+    static String getFormartLogin(String str) {
+        str = str.toLowerCase().trim();
+        return str;
+    }
+
+    static String replaceSecondWord(String str1, String str2) {
+        int start = str1.indexOf(" ");
+        String word = str1.substring(start + 1);
+        if (word.equals(str2)) System.out.println("Замена бесмысленая");
+        else str1 = str1.substring(0, start + 1) + str2;
+
+        return str1;
+    }
+
+    static void Numbers(String str) {
+        Pattern p = Pattern.compile("\\d+");
+        Matcher matcher = p.matcher(str);
+        int count = 0;
+        String numbers = "";
+        while (matcher.find()) {
+            if (count < matcher.end() - matcher.start()) {
+                count = matcher.end() - matcher.start();
+                numbers = matcher.group();
+            }else {
+                continue;
+            }
+        }
+        System.out.println(numbers + " " + count);
     }
 }
