@@ -5,24 +5,23 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-//        Bus bus = new Bus();
-//        bus.Honk();
-//        bus.Honk("Дзинь");
-//        bus.Honk("Бип", 5);
-//        bus.Honk(false, "Бип");
-
-//        Dog dog = new Dog();
-//        Cat cat = new Cat();
+//        Box<String> box = new Box();
+//        box.setItem("Test");
+//        System.out.println(box.getItem());
 //
-//        Animal[] array = {dog, cat};
+//        Box<Integer> box2 = new Box();
+//        box2.setItem(123);
+//        System.out.println(box2.getItem());
 //
-//        AnimalWorld animalWorld = new AnimalWorld();
-//        animalWorld.getAnimal(array);
+//
+//        NumberBox<Double> box3 = new NumberBox();
+//        box3.setItem(12312.22);
+//        System.out.println(box3.getItem());
+//
+//        NumberBox<Integer> box4 = new NumberBox();
+//        box4.setItem(1231111);
+//        System.out.println(box4.getItem());
+//
 
-        Bus2 bus = new Bus2();
-        bus.Honk();
-        bus.move(30);
-        bus.refuel(100);
-        System.out.println(bus.toString());
     }
 }
