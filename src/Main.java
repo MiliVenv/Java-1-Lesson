@@ -1,27 +1,38 @@
-import java.util.Arrays;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-//        Box<String> box = new Box();
-//        box.setItem("Test");
-//        System.out.println(box.getItem());
+//        System.out.println(Day.MONDAY);
+//        System.out.println(Day.MONDAY.isWorkingDay);
 //
-//        Box<Integer> box2 = new Box();
-//        box2.setItem(123);
-//        System.out.println(box2.getItem());
-//
-//
-//        NumberBox<Double> box3 = new NumberBox();
-//        box3.setItem(12312.22);
-//        System.out.println(box3.getItem());
-//
-//        NumberBox<Integer> box4 = new NumberBox();
-//        box4.setItem(1231111);
-//        System.out.println(box4.getItem());
-//
+//        for (Day day : Day.values()) {
+//            System.out.println(day + " " + day.isWorkingDay + " " + day.HoursWorking);
+//        }
+        Pair<Day, Integer>[] array = new Pair[7];
+        int i = 0;
+        Random random = new Random();
+        for (Day day : Day.values()) {
+            array[day.ordinal()] = new Pair<>(day, random.nextInt(7));
+        }
+        for (Pair p : array) {
+            System.out.println(p.getKey() + " " + p.getValue() + " " + ((Day) p.getKey()).HoursWorking);
+        }
+    }
+
+    public enum Day {
+        MONDAY(true, 8), TUESDAY(true, 8),
+        WEDNESDAY(true, 8), THURSDAY(true, 8),
+        FRIDAY(true, 8), SATURDAY(false, 0),
+        SUNDAY(false, 0);
+
+        private boolean isWorkingDay;
+        private int HoursWorking;
+
+        Day(boolean isWorkingDay, int HoursWorking) {
+            this.isWorkingDay = isWorkingDay;
+            this.HoursWorking = HoursWorking;
+        }
 
     }
 }
