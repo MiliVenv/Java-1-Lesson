@@ -1,38 +1,48 @@
-import java.util.Random;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-//        System.out.println(Day.MONDAY);
-//        System.out.println(Day.MONDAY.isWorkingDay);
-//
-//        for (Day day : Day.values()) {
-//            System.out.println(day + " " + day.isWorkingDay + " " + day.HoursWorking);
-//        }
-        Pair<Day, Integer>[] array = new Pair[7];
-        int i = 0;
+        List<Integer> list = new LinkedList<>();
         Random random = new Random();
-        for (Day day : Day.values()) {
-            array[day.ordinal()] = new Pair<>(day, random.nextInt(7));
+        for (int i = 0; i < 100; i++) {
+            list.add(random.nextInt(20));
         }
-        for (Pair p : array) {
-            System.out.println(p.getKey() + " " + p.getValue() + " " + ((Day) p.getKey()).HoursWorking);
-        }
-    }
+        Iterator<Integer> iterator = list.iterator();
 
-    public enum Day {
-        MONDAY(true, 8), TUESDAY(true, 8),
-        WEDNESDAY(true, 8), THURSDAY(true, 8),
-        FRIDAY(true, 8), SATURDAY(false, 0),
-        SUNDAY(false, 0);
+        System.out.println(list);
 
-        private boolean isWorkingDay;
-        private int HoursWorking;
-
-        Day(boolean isWorkingDay, int HoursWorking) {
-            this.isWorkingDay = isWorkingDay;
-            this.HoursWorking = HoursWorking;
+        while (iterator.hasNext()) {
+            if (iterator.next() % 2 == 0) {
+                iterator.remove();
+            }
         }
 
+        TreeSet<Integer> set = new TreeSet<>(list);
+        System.out.println(set);
+
+//        List<Integer> list = new LinkedList<>();
+//        Random random = new Random();
+//
+//        for (int i = 0; i < random.nextInt(100); i++) {
+//            list.add(random.nextInt(100));
+//        }
+//
+//        System.out.println(list);
+//
+//        int count = list.size();
+//        for (int i = 0; i < count - i; i++) {
+//            count--;
+//            for (int j = 0; i < list.size(); i++) {
+//
+//                if (list.get(j) > list.get( + 1)) {
+//                    int element = list.get(i);
+//                    list.set(i, list.get(i + 1));
+//                    list.set(i + 1, element);
+//                }
+//            }
+//        }
+//        System.out.println(list);
+//    }
     }
 }
