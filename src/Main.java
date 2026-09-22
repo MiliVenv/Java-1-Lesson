@@ -3,46 +3,46 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        List<Integer> list = new LinkedList<>();
+//        Map<Integer, String> map = new HashMap<>();
+//        map.put(1, "Russia");
+//        map.put(2, "Spain");
+//        map.put(3, "Germany");
+//        map.put(4, "Italy");
+//        System.out.println(map.get(2));
+//        Set<Integer> set = map.keySet();
+//        System.out.println(set);
+//        Collection<String> setValue = map.values();
+//        System.out.println(setValue);
+//        map.replace(1, "Poland");
+//        map.remove(2);
+//        System.out.println(setValue);
+//        for (Map.Entry<Integer, String> item : map.entrySet()) {
+//            System.out.println(item.getKey());
+//            System.out.println(item.getValue());
+//        }
+
+        Map<Integer, Integer> map = new HashMap<>();
+        ArrayList<Integer> array = new ArrayList<>();
         Random random = new Random();
-        for (int i = 0; i < 100; i++) {
-            list.add(random.nextInt(20));
+        int count = random.nextInt(100);
+        for (int j = 0; j <= count; j++) {
+            array.add(random.nextInt(100));
         }
-        Iterator<Integer> iterator = list.iterator();
-
-        System.out.println(list);
-
-        while (iterator.hasNext()) {
-            if (iterator.next() % 2 == 0) {
-                iterator.remove();
-            }
+        for (int i = 0; i <= count; i++) {
+            map.put(i, 0);
         }
+        System.out.println(array);
+        System.out.println(map);
 
-        TreeSet<Integer> set = new TreeSet<>(list);
-        System.out.println(set);
+        System.out.println(findDubl(array, map, count));
+    }
 
-//        List<Integer> list = new LinkedList<>();
-//        Random random = new Random();
-//
-//        for (int i = 0; i < random.nextInt(100); i++) {
-//            list.add(random.nextInt(100));
-//        }
-//
-//        System.out.println(list);
-//
-//        int count = list.size();
-//        for (int i = 0; i < count - i; i++) {
-//            count--;
-//            for (int j = 0; i < list.size(); i++) {
-//
-//                if (list.get(j) > list.get( + 1)) {
-//                    int element = list.get(i);
-//                    list.set(i, list.get(i + 1));
-//                    list.set(i + 1, element);
-//                }
-//            }
-//        }
-//        System.out.println(list);
-//    }
+    public static Map<Integer, Integer> findDubl(ArrayList<Integer> array, Map<Integer, Integer> map, int count) {
+
+        for (int i = 0; i < count; i++) {
+            int currentElement = array.get(i);
+            map.put(currentElement, map.getOrDefault(currentElement, 0) + 1);
+        }
+        return map;
     }
 }
