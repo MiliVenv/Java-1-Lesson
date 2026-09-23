@@ -1,15 +1,50 @@
-import java.time.LocalDate;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Manager manager = new Manager ();
-        manager.AddNewUser(new User ("misha", "12154", LocalDate.of(2020, 10, 10)));
-        manager.AddNewUser(new User ("vaniax", "goule", LocalDate.now())) ;
-        manager.AddNewUser(new User ("petr", "pokemon", LocalDate.of(2021, 10, 10))) ;
-        manager.AddNewUser(new User ("ira", "root", LocalDate.of(2022, 10,10)));
-        System.out.println();
-        manager.getAllUsers();
+    public static void main(String[] args){
+//        try {
+//            ReadFileJava();
+//        } catch (MyExeption e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            ReadFileJavaTwo();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        Users users = new Users();
+        try {
+            users.ValidateRegistration("adsa", "123", "123");
+        } catch (PasswordConfirmExeption e) {
+            throw new RuntimeException(e);
+        } catch (EmptyLoginExeption e) {
+            throw new RuntimeException(e);
+        } catch (LengthExeption e) {
+            throw new RuntimeException(e);
+        } catch (InvalidCharacterExeption e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void ReadFileJava() throws MyExeption {
+        try {
+            BufferedReader fin = new BufferedReader(new FileReader("src/Main.java"));
+            String line;
+            while ((line = fin.readLine()) != null) System.out.println(line);
+        }catch (FileNotFoundException e){
+            throw new MyExeption("Путь указан неверно", "src/Main.java");
+        }catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void ReadFileJavaTwo() throws IOException {
+        BufferedReader fin = new BufferedReader(new FileReader("src/Main.java"));
+        String line;
+        while ((line = fin.readLine()) != null) System.out.println(line);
     }
 }
