@@ -1,50 +1,76 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args){
-//        try {
-//            ReadFileJava();
-//        } catch (MyExeption e) {
-//            throw new RuntimeException(e);
-//        }
-//        try {
-//            ReadFileJavaTwo();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-        Users users = new Users();
-        try {
-            users.ValidateRegistration("adsa", "123", "123");
-        } catch (PasswordConfirmExeption e) {
-            throw new RuntimeException(e);
-        } catch (EmptyLoginExeption e) {
-            throw new RuntimeException(e);
-        } catch (LengthExeption e) {
-            throw new RuntimeException(e);
-        } catch (InvalidCharacterExeption e) {
-            throw new RuntimeException(e);
-        }
-    }
+    public static void main(String[] args) throws IOException {
+        File dir = new File("test");
+        boolean event = dir.mkdir();
 
-    public static void ReadFileJava() throws MyExeption {
-        try {
-            BufferedReader fin = new BufferedReader(new FileReader("src/Main.java"));
-            String line;
-            while ((line = fin.readLine()) != null) System.out.println(line);
-        }catch (FileNotFoundException e){
-            throw new MyExeption("Путь указан неверно", "src/Main.java");
-        }catch (IOException e) {
-            System.out.println(e);
+        for(int i = 0; i <= 20; i++) {
+            File f = new File(dir, "test_" + i + ".txt");
+            f.createNewFile();
+            try (OutputStream os = new FileOutputStream(f)) {
+                os.write(("Java " + i).getBytes(StandardCharsets.UTF_8));
+            }
         }
-    }
 
-    public static void ReadFileJavaTwo() throws IOException {
-        BufferedReader fin = new BufferedReader(new FileReader("src/Main.java"));
-        String line;
-        while ((line = fin.readLine()) != null) System.out.println(line);
+        for (File file : dir.listFiles()) {
+            try (InputStream os = new FileInputStream(file)) {
+                byte[] byte_array = os.readAllBytes();
+                String content = new String(byte_array, StandardCharsets.UTF_8);
+                if (content.equals("Java 7")) {
+                    System.out.println("Нашёл вот он " + file.getName());
+                }else {
+                    System.out.println(file.getName());
+                }
+            }
+        }
+
+        System.out.println("\n2 Способ");
+
+        for (File file : dir.listFiles()) {
+            try (FileReader fr = new FileReader(file); Scanner sc = new Scanner(fr)) {
+
+                while (sc.hasNextLine()) {
+                    if (sc.nextLine().equals("Java 7")) {
+                        System.out.println("Нашёл вот он " + file.getName());
+                    }else {
+                        System.out.println(file.getName());
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i <= 20; i++) {
+            File f = new File(dir, "test_" + i + ".txt");
+            f.createNewFile();
+            try (FileWriter os = new FileWriter(f, true)) {
+                os.write("\nNice " + i);
+            }
+        }
+
+        System.out.println("\n3 Способ");
+
+        for(int i = 0; i <= 20; i++) {
+            File f = new File(dir, "test_" + i + ".txt");
+            f.createNewFile();
+            try (OutputStream os = new FileOutputStream(f); BufferedOutputStream bf = new BufferedOutputStream(os)) {
+                bf.write(("Java " + i).getBytes(StandardCharsets.UTF_8));
+            }
+        }
+
+        for (File file : dir.listFiles()) {
+            try (InputStream os = new FileInputStream(file); BufferedInputStream bf = new BufferedInputStream(os)) {
+                byte[] byte_array = bf.readAllBytes();
+                String content = new String(byte_array, StandardCharsets.UTF_8);
+                if (content.equals("Java 7")) {
+                    System.out.println("Нашёл вот он " + file.getName());
+                }else {
+                    System.out.println(file.getName());
+                }
+            }
+        }
     }
 }
