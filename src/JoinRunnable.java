@@ -10,7 +10,7 @@ public class JoinRunnable extends Thread {
         String currentThread = Thread.currentThread().getName();
 
         for (int i = 0; i < 10; i++) {
-            System.out.println("run " + i);
+            System.out.println("run " + i + " " + getName());
             try {
                 Thread.sleep(500);
             }catch (InterruptedException ex) {
