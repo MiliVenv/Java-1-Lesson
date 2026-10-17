@@ -1,94 +1,78 @@
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-//        Runnable runnable = () -> System.out.println("Hello World");
-//        Thread thread = new Thread(runnable);
-//        thread.start();
+//        ArrayList<String> array = new ArrayList();
 //
-//        String[] list = new String[]{"asdasd", "asdasdasd", "dasdasdasd"};
-//        String[] list2 = new String[]{"asdas", "asdasd"};
+//        array.add("a1");
+//        array.add("a2");
+//        array.add("a3");
+//        array.add("a1");
 //
-//        List<String[]> arrays = new ArrayList<>();
-//        arrays.add(list);
-//        arrays.add(list2);
+//        System.out.println(array.stream().filter("a1"::equals).count());
+//        System.out.println(array.stream().findFirst().orElse("0"));
+//        System.out.println(array.stream().skip(array.size() - 1).findFirst().orElse("Empty"));
+//        System.out.println(array.stream().filter("a3"::equals).findFirst().get());
+//        System.out.println(array.stream().skip(2).findFirst().get());
+//        System.out.println(array.stream().skip(1).limit(2).collect(Collectors.toList()));
 //
-//        arrays.sort((o1, o2) -> o1.length - o2.length);
+        People people = new People("Вася", 18 , Sex.MAN);
+        People people2 = new People("Петя", 22 , Sex.MAN);
+        People people3 = new People("Никита", 34 , Sex.MAN);
+        People people4 = new People("Арина", 67 , Sex.WOMEN);
+        People people5 = new People("Василина", 54 , Sex.WOMEN);
+        People people6 = new People("Соня", 18 , Sex.WOMEN);
+
+        Collection<People> arr = new ArrayList<>();
+        arr.add(people);
+        arr.add(people2);
+        arr.add(people3);
+        arr.add(people4);
+        arr.add(people5);
+        arr.add(people6);
 //
-//        for (String[] arr : arrays) {
-//            System.out.println(Arrays.toString(arr));
+//        List<People> arr1 = arr.stream()
+//                .filter(a -> a.sex == Sex.MAN)
+//                .filter(a -> a.age >= 18 && a.age <= 27)
+//                .collect(Collectors.toList());
+//
+//        for (People peo : arr1) {
+//            System.out.println(peo.age + ", " + peo.sex + ", " + peo.name);
+//        }
+//
+//        double avr = arr.stream().filter(p -> p.sex == Sex.MAN).mapToInt(People::getAge).average().getAsDouble();
+//        System.out.println(avr);
+//
+//        List<People> arr1 = arr.stream()
+//                .filter(a -> a.age >= 18)
+//                .filter(a -> (a.sex == Sex.MAN && a.age >= 18 && a.age <= 60) || (a.sex == Sex.WOMEN && a.age >= 18 && a.age <= 55))
+//                .collect(Collectors.toList());
+//
+//        for (People peo : arr1) {
+//            System.out.println(peo.age + ", " + peo.sex + ", " + peo.name);
 //        }
 
-//        @FunctionalInterface
-//        interface MathInterface<T> {
-//            T getMax(T first, T second);
-//        }
-//
-//        MathInterface<Integer> m = (first, second) -> {
-//            if (first > second) return first;
-//            return second;
-//        };
-//
-//        System.out.println(m.getMax(1, 2));
+        arr.stream().sorted(new PeopleAgeComparator().thenComparing(new PeopleNameComparator())).forEach(System.out::println);
 
-        @FunctionalInterface
-        interface Operation<T> {
-            T operation(List<Integer> list);
-        }
+    }
+}
 
-        List<Integer> list2 = new ArrayList<>();
-        list2.add(1);
-        list2.add(2);
-        list2.add(3);
-        list2.add(4);
-        list2.add(1);
-        list2.add(2);
-        list2.add(3);
-        list2.add(4);
-        list2.add(1);
-        list2.add(2);
-        list2.add(3);
-        list2.add(4);
-        list2.add(1);
-        list2.add(2);
-        list2.add(3);
-        list2.add(4);
+class PeopleAgeComparator implements Comparator<People> {
 
-        Operation<Integer> m = (List<Integer> list) -> {
-            int sum = 0;
-            for (int number : list) {
-                sum += number;
-            }
-            return sum;
-        };
-        Operation<String> m2 = (List<Integer> list) -> {
-            StringBuilder sb = new StringBuilder();
-            for (int number : list) {
-                sb.append(number);
-            }
-            return sb.toString();
-        };
-        Operation<Integer> m3 = (List<Integer> list) -> {
-            int sum = 0;
-            for (int number : list) {
-                sum *= number;
-            }
-            return sum;
-        };
-        if (list2.size() > 20) {
-            System.out.println(m.operation(list2));
-            System.out.println("1");
-        }else if(list2.size() > 10) {
-            System.out.println(m2.operation(list2));
-            System.out.println("2");
-        }else {
-            System.out.println(m3.operation(list2));
-            System.out.println("3");
-        }
+    @Override
+    public int compare(People o1, People o2) {
+        return o1.getAge() - o2.getAge();
+    }
+}
+
+class PeopleNameComparator implements Comparator<People> {
+
+    @Override
+    public int compare(People o1, People o2) {
+        return o1.name.compareTo(o2.name);
     }
 }
