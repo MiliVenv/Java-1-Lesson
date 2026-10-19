@@ -6,23 +6,17 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Director DirectorA = Director.getInstance("Вася");
-        System.out.println(DirectorA.getName());
-        Director DirectorB = Director.getInstance("Петя");
-        System.out.println(DirectorA.getName());
+        Programer Person = new Programer();
+        Person.setFirstName("Василий");
+        Person.setLastName("Петров");
+        Person.setAge(16);
+        Person.setHardSkils(HardSkils.Logic);
+        Person.setSoftSkils(SoftSkils.Good);
+        System.out.println(Person);
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 10; i++) {
-                    DirectorThread DirectorA = DirectorThread.getInstance("пЕТЯ");
-                    System.out.println(DirectorA + " " + DirectorA.getName());
-                }
-            }
-        };
-
-        ExecutorService pool = Executors.newFixedThreadPool(10);
-        pool.submit(runnable);
-        pool.shutdown();
+        Director director = new Director();
+        System.out.println(director.getJunior(Rang.Junior));
+        System.out.println(director.getMidle(Rang.Midlle));
+        System.out.println(director.getSenior(Rang.Senior));
     }
 }
