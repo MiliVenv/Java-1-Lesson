@@ -1,22 +1,29 @@
-import java.lang.reflect.Array;
-import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.stream.Collectors;
+import java.lang.reflect.*;
+import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Programer Person = new Programer();
-        Person.setFirstName("Василий");
-        Person.setLastName("Петров");
-        Person.setAge(16);
-        Person.setHardSkils(HardSkils.Logic);
-        Person.setSoftSkils(SoftSkils.Good);
-        System.out.println(Person);
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        User user = new User("Jane", LocalDate.now(), true, "dasda1321");
+        Class<User> userClass = User.class;
+        System.out.println(userClass.getSuperclass());
 
-        Director director = new Director();
-        System.out.println(director.getJunior(Rang.Junior));
-        System.out.println(director.getMidle(Rang.Midlle));
-        System.out.println(director.getSenior(Rang.Senior));
+        Class<? extends User> userClassObject = user.getClass();
+        System.out.println(userClass.equals(userClassObject));
+
+        Field field = userClass.getDeclaredField("pas");
+        field.setAccessible(true);
+        System.out.println(field.get(user));
+        field.set(user, "publicpas");
+        System.out.println(user.getPas());
+        Method method = userClass.getDeclaredMethod("purchase");
+        System.out.println(method.getName());
+        System.out.println(method.getReturnType());
+        System.out.println(Arrays.toString(method.getDeclaredAnnotations()));
+        int modifier = method.getModifiers();
+        System.out.println(Modifier.isPublic(modifier));
+
+        method.invoke(user);
+
     }
 }
